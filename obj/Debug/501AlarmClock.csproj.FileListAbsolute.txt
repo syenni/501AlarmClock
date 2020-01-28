@@ -1,0 +1,11 @@
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\501AlarmClock.csprojAssemblyReference.cache
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\_501AlarmClock.AddEditAlarm.resources
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\_501AlarmClock.AlarmClock.resources
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\_501AlarmClock.Properties.Resources.resources
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\501AlarmClock.csproj.GenerateResource.cache
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\501AlarmClock.csproj.CoreCompileInputs.cache
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\bin\Debug\501AlarmClock.exe.config
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\bin\Debug\501AlarmClock.exe
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\bin\Debug\501AlarmClock.pdb
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\501AlarmClock.exe
+C:\Users\sethyenni\Documents\501AlarmClock\501AlarmClock\obj\Debug\501AlarmClock.pdb
