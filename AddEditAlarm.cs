@@ -13,6 +13,7 @@ namespace _501AlarmClock
     public partial class AddEditAlarm : Form
     {
         public DateTime Alarm { get; private set; }
+        public bool On { get; private set; }
 
         public AddEditAlarm()
         {
@@ -27,6 +28,33 @@ namespace _501AlarmClock
         private void BtnSet_Click(object sender, EventArgs e)
         {
             Alarm = dateTimePicker.Value;
+            if (rbnOn.Checked)
+                On = true;
+            else
+                On = false;
+        }
+
+        public override string ToString()
+        {
+            string on = "";
+            string minute = "";
+            string hour = "";
+            string amPM = "";
+            int numHour = Alarm.Hour;
+            if (On) on = "On"; else on = "Off";
+            if (Alarm.Minute == 0) minute = "00"; else minute = Alarm.Minute.ToString();
+            if (numHour > 12)
+            {
+                numHour -= 12;
+                hour = numHour.ToString();
+                amPM = "PM";
+            }
+            else
+            {
+                hour = numHour.ToString();
+                amPM = "AM";
+            }
+            return hour + ":" + minute + " " + amPM + "   " + on;
         }
     }
 }

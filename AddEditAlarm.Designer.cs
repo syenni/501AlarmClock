@@ -31,6 +31,7 @@
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSet = new System.Windows.Forms.Button();
+            this.rbnOn = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // dateTimePicker
@@ -39,7 +40,7 @@
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker.Location = new System.Drawing.Point(41, 46);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(313, 27);
+            this.dateTimePicker.Size = new System.Drawing.Size(246, 27);
             this.dateTimePicker.TabIndex = 0;
             this.dateTimePicker.Value = new System.DateTime(2020, 1, 27, 7, 0, 0, 0);
             // 
@@ -66,17 +67,30 @@
             this.btnSet.UseVisualStyleBackColor = true;
             this.btnSet.Click += new System.EventHandler(this.BtnSet_Click);
             // 
+            // rbnOn
+            // 
+            this.rbnOn.AutoSize = true;
+            this.rbnOn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbnOn.Location = new System.Drawing.Point(300, 50);
+            this.rbnOn.Name = "rbnOn";
+            this.rbnOn.Size = new System.Drawing.Size(49, 22);
+            this.rbnOn.TabIndex = 3;
+            this.rbnOn.Text = "On";
+            this.rbnOn.UseVisualStyleBackColor = true;
+            // 
             // AddEditAlarm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(394, 200);
+            this.Controls.Add(this.rbnOn);
             this.Controls.Add(this.btnSet);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.dateTimePicker);
             this.Name = "AddEditAlarm";
             this.Text = "AddEditAlarm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -85,5 +99,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSet;
+        private System.Windows.Forms.RadioButton rbnOn;
     }
 }

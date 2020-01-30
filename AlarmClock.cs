@@ -13,7 +13,7 @@ namespace _501AlarmClock
     public partial class AlarmClock : Form
     {
         System.Timers.Timer timer;
-        BindingList<DateTime> alarmList = new BindingList<DateTime>(); //will need to be set to file loaded in of existing alarms
+        BindingList<AddEditAlarm> alarmList = new BindingList<AddEditAlarm>(); //will need to be set to file loaded in of existing alarms
 
         public AlarmClock()
         {
@@ -48,11 +48,14 @@ namespace _501AlarmClock
             AddEditAlarm addEditAlarm = new AddEditAlarm();
             if (addEditAlarm.ShowDialog() == DialogResult.OK)
             {
-                DateTime newAlarm = addEditAlarm.Alarm;
+                alarmList.Add(addEditAlarm);
+                listBox.Items.Add(addEditAlarm.ToString());
+
+                /*DateTime newAlarm = addEditAlarm.Alarm;
                 string alarmString = newAlarm.Hour.ToString() + newAlarm.Minute.ToString();
                 alarmList.Add(newAlarm);
                 listBox.DataSource = alarmList;
-                listBox.DisplayMember = alarmString;
+                listBox.DisplayMember = alarmString;*/
             }
                 
             
