@@ -50,16 +50,7 @@ namespace _501AlarmClock
             {
                 alarmList.Add(addEditAlarm);
                 listBox.Items.Add(addEditAlarm.ToString());
-
-                /*DateTime newAlarm = addEditAlarm.Alarm;
-                string alarmString = newAlarm.Hour.ToString() + newAlarm.Minute.ToString();
-                alarmList.Add(newAlarm);
-                listBox.DataSource = alarmList;
-                listBox.DisplayMember = alarmString;*/
             }
-                
-            
-
         }
     }
 }
