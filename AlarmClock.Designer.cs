@@ -67,6 +67,7 @@
             this.btnSnooze.TabIndex = 2;
             this.btnSnooze.Text = "Snooze";
             this.btnSnooze.UseVisualStyleBackColor = true;
+            this.btnSnooze.Click += new System.EventHandler(this.BtnSnooze_Click);
             // 
             // btnStop
             // 
@@ -77,6 +78,7 @@
             this.btnStop.TabIndex = 3;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // listBox
             // 
@@ -90,7 +92,6 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.Enabled = false;
             this.lblStatus.Font = new System.Drawing.Font("Verdana", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Tomato;
             this.lblStatus.Location = new System.Drawing.Point(34, 431);
@@ -98,6 +99,7 @@
             this.lblStatus.Size = new System.Drawing.Size(245, 31);
             this.lblStatus.TabIndex = 6;
             this.lblStatus.Text = "Alarm is ringing!";
+            this.lblStatus.Visible = false;
             // 
             // AlarmClock
             // 

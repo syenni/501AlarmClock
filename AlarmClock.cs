@@ -22,7 +22,13 @@ namespace _501AlarmClock
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-
+            int index = listBox.SelectedIndex;
+            AddEditAlarm addEditAlarm = new AddEditAlarm();
+            if (addEditAlarm.ShowDialog() == DialogResult.OK)
+            {
+                alarmList[index] = addEditAlarm;
+                listBox.Items[index] = addEditAlarm.ToString();
+            }
         }
 
         private void AlarmClock_Load(object sender, EventArgs e)
@@ -34,13 +40,15 @@ namespace _501AlarmClock
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //DateTime currentTime = DateTime.Now;
-            //DateTime enteredTime = DateTimePicker.Value;
-            //if (currentTime.Hour == enteredTime.Hour && currentTime.Minute == enteredTime.Minute && currentTime.Second == enteredTime.Second)
-            //{
-            //    timer.Stop();
-            //    lblStatus.Enabled = true;
-            //}
+            DateTime currentTime = DateTime.Now;
+            foreach(AddEditAlarm thisAlarm in alarmList)
+            {
+                if (currentTime.Hour == thisAlarm.Alarm.Hour && currentTime.Minute == thisAlarm.Alarm.Minute && currentTime.Second == thisAlarm.Alarm.Second)
+                {
+                    timer.Stop();
+                    lblStatus.Visible = true;
+                }
+            }
         }
 
         private void BtnAddAlarm_Click(object sender, EventArgs e)
@@ -51,6 +59,16 @@ namespace _501AlarmClock
                 alarmList.Add(addEditAlarm);
                 listBox.Items.Add(addEditAlarm.ToString());
             }
+        }
+
+        private void BtnSnooze_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnStop_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
