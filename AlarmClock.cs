@@ -36,23 +36,35 @@ namespace _501AlarmClock
         private void AlarmClock_Load(object sender, EventArgs e)
         {
             LoadAlarms();
-            timer = new System.Timers.Timer();
-            timer.Interval = 1000;
-            timer.Elapsed += Timer_Elapsed;
+            CreateAlarmDelay();
+            //timer = new System.Timers.Timer();
+            //timer.Interval = 1000;
+            //timer.Elapsed += Timer_Elapsed;
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private async void CreateAlarmDelay()
         {
-            DateTime currentTime = DateTime.Now;
-            foreach(AddEditAlarm thisAlarm in alarmList)
+            foreach (AddEditAlarm alarm in alarmList)
             {
-                if (currentTime.Hour == thisAlarm.Alarm.Hour && currentTime.Minute == thisAlarm.Alarm.Minute && currentTime.Second == thisAlarm.Alarm.Second)
-                {
-                    timer.Stop();
-                    lblStatus.Visible = true;
-                }
+                TimeSpan ts = alarm.Alarm.Subtract(DateTime.Now);
+                await PutTaskDelay((int)ts.TotalMilliseconds);
+                lblStatus.Visible = true;
             }
         }
+
+        //private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        //{
+        //    DateTime currentTime = DateTime.Now;
+        //    foreach(AddEditAlarm thisAlarm in alarmList)
+        //    {
+        //        //if (currentTime.Hour == thisAlarm.Alarm.Hour && currentTime.Minute == thisAlarm.Alarm.Minute && currentTime.Second == thisAlarm.Alarm.Second)
+        //        if(DateTime.Now >= thisAlarm.Alarm)
+        //        {
+        //            timer.Stop();
+        //            lblStatus.Visible = true;
+        //        }
+        //    }
+        //}
 
         private void BtnAddAlarm_Click(object sender, EventArgs e)
         {
@@ -70,14 +82,14 @@ namespace _501AlarmClock
             if (lblStatus.Visible)
             {
                 lblStatus.Visible = false;
-                await PutTaskDelay();
+                await PutTaskDelay(30000); //30 second snooze
                 lblStatus.Visible = true;
             }
         }
 
-        private async Task PutTaskDelay()
+        private async Task PutTaskDelay(int ms)
         {
-            await Task.Delay(30000);
+            await Task.Delay(ms);
         }
 
         private void BtnStop_Click(object sender, EventArgs e)
