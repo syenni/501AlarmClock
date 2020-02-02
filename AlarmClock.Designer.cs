@@ -101,6 +101,7 @@
             this.lblStatus.Size = new System.Drawing.Size(245, 31);
             this.lblStatus.TabIndex = 6;
             this.lblStatus.Text = "Alarm is ringing!";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblStatus.Visible = false;
             // 
             // AlarmClock

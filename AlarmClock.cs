@@ -29,6 +29,11 @@ namespace _501AlarmClock
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Event handler for when the edit button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEdit_Click(object sender, EventArgs e)
         {
             int index = listBox.SelectedIndex;
@@ -44,11 +49,19 @@ namespace _501AlarmClock
             }
         }
 
+        /// <summary>
+        /// Load event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlarmClock_Load(object sender, EventArgs e)
         {
             LoadAlarms();
         }
 
+        /// <summary>
+        /// Method to create the delays for each alarm to the length of when they are to go off
+        /// </summary>
         private async void CreateAlarmDelay()
         {
             foreach (AddEditAlarm alarm in alarmList)
@@ -67,6 +80,11 @@ namespace _501AlarmClock
             }
         }
 
+        /// <summary>
+        /// Event handler for when the add alarm button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddAlarm_Click(object sender, EventArgs e)
         {
             AddEditAlarm addEditAlarm = new AddEditAlarm();
@@ -78,32 +96,54 @@ namespace _501AlarmClock
             WriteAlarms();
         }
 
+        /// <summary>
+        /// Event handler for when the snooze button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void BtnSnooze_Click(object sender, EventArgs e)
         {
             btnSnooze.Enabled = false;
             btnStop.Enabled = false;
-            if (lblStatus.Visible)
-            {
-                lblStatus.Visible = false;
-                await PutTaskDelay(30000); //30 second snooze
-                lblStatus.Visible = true;
-                btnSnooze.Enabled = true;
-                btnStop.Enabled = true;
-            }
+            lblStatus.Text = "Snoozed";
+            await PutTaskDelay(5000);
+            lblStatus.Visible = false;
+            lblStatus.Text = "Alarm is ringing!";
+            await PutTaskDelay(30000); //30 second snooze
+            lblStatus.Visible = true;
+            btnSnooze.Enabled = true;
+            btnStop.Enabled = true;
         }
 
+        /// <summary>
+        /// Method for creating delays for alarms and snooze
+        /// </summary>
+        /// <param name="ms">Length of the delay</param>
+        /// <returns></returns>
         private async Task PutTaskDelay(int ms)
         {
             await Task.Delay(ms);
         }
 
-        private void BtnStop_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event handler for when the stop button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void BtnStop_Click(object sender, EventArgs e)
         {
-            lblStatus.Visible = false;
             btnStop.Enabled = false;
             btnSnooze.Enabled = false;
+            lblStatus.Text = "Stopped";
+            await PutTaskDelay(5000);
+            lblStatus.Visible = false;
+            lblStatus.Text = "Alarm is ringing!";
+
         }
 
+        /// <summary>
+        /// Writes the current alarms in the program to a file
+        /// </summary>
         private void WriteAlarms()
         {
             using (StreamWriter file = new StreamWriter("alarms.txt"))
@@ -123,6 +163,9 @@ namespace _501AlarmClock
             CreateAlarmDelay();
         }
 
+        /// <summary>
+        /// Loads the current alarms saved in the files into the program
+        /// </summary>
         private void LoadAlarms()
         {
             BindingList<DateTime> alarms = new BindingList<DateTime>();
