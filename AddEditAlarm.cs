@@ -12,8 +12,8 @@ namespace _501AlarmClock
 {
     public partial class AddEditAlarm : Form
     {
-        public DateTime Alarm { get; set; }
-        public bool On { get; set; }
+        public DateTime Alarm { get; protected set; }
+        public bool On { get; protected set; }
 
         public AddEditAlarm()
         {
@@ -49,7 +49,12 @@ namespace _501AlarmClock
             string amPM = "";
             int numHour = Alarm.Hour;
             if (On) on = "On"; else on = "Off";
-            if (Alarm.Minute == 0) minute = "00"; else minute = Alarm.Minute.ToString();
+            if (Alarm.Minute == 0)
+                minute = "00";
+            else if
+                (Alarm.Minute < 10) minute = "0" + Alarm.Minute.ToString();
+            else
+                minute = Alarm.Minute.ToString();
             if (numHour > 12)
             {
                 numHour -= 12;
@@ -62,6 +67,11 @@ namespace _501AlarmClock
                 amPM = "AM";
             }
             return hour + ":" + minute + " " + amPM + "   " + on;
+        }
+
+        private void AddEditAlarm_Load(object sender, EventArgs e)
+        {
+            dateTimePicker.Value = DateTime.Now;
         }
     }
 }

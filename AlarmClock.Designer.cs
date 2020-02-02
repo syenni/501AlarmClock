@@ -60,6 +60,7 @@
             // 
             // btnSnooze
             // 
+            this.btnSnooze.Enabled = false;
             this.btnSnooze.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSnooze.Location = new System.Drawing.Point(39, 356);
             this.btnSnooze.Name = "btnSnooze";
@@ -71,6 +72,7 @@
             // 
             // btnStop
             // 
+            this.btnStop.Enabled = false;
             this.btnStop.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.Location = new System.Drawing.Point(163, 356);
             this.btnStop.Name = "btnStop";

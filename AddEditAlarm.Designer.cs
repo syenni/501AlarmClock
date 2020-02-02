@@ -89,6 +89,7 @@
             this.Controls.Add(this.dateTimePicker);
             this.Name = "AddEditAlarm";
             this.Text = "AddEditAlarm";
+            this.Load += new System.EventHandler(this.AddEditAlarm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -11,11 +11,19 @@ using System.IO;
 
 namespace _501AlarmClock
 {
+    /// <summary>
+    /// Definitions for the AlarmClock class
+    /// </summary>
     public partial class AlarmClock : Form
     {
-        System.Timers.Timer timer;
+        /// <summary>
+        /// List of alarms used
+        /// </summary>
         BindingList<AddEditAlarm> alarmList = new BindingList<AddEditAlarm>();
 
+        /// <summary>
+        /// Defualt Constructor
+        /// </summary>
         public AlarmClock()
         {
             InitializeComponent();
@@ -25,46 +33,39 @@ namespace _501AlarmClock
         {
             int index = listBox.SelectedIndex;
             AddEditAlarm addEditAlarm = new AddEditAlarm();
-            if (addEditAlarm.ShowDialog() == DialogResult.OK)
+            if (index >= 0)
             {
-                alarmList[index] = addEditAlarm;
-                listBox.Items[index] = addEditAlarm.ToString();
+                if (addEditAlarm.ShowDialog() == DialogResult.OK)
+                {
+                    alarmList[index] = addEditAlarm;
+                    listBox.Items[index] = addEditAlarm.ToString();
+                }
+                WriteAlarms();
             }
-            WriteAlarms();
         }
 
         private void AlarmClock_Load(object sender, EventArgs e)
         {
             LoadAlarms();
-            CreateAlarmDelay();
-            //timer = new System.Timers.Timer();
-            //timer.Interval = 1000;
-            //timer.Elapsed += Timer_Elapsed;
         }
 
         private async void CreateAlarmDelay()
         {
             foreach (AddEditAlarm alarm in alarmList)
             {
-                TimeSpan ts = alarm.Alarm.Subtract(DateTime.Now);
-                await PutTaskDelay((int)ts.TotalMilliseconds);
-                lblStatus.Visible = true;
+                if (alarm.On)
+                {
+                    TimeSpan ts = alarm.Alarm.Subtract(DateTime.Now);
+                    if (ts.TotalMilliseconds > 0)
+                    {
+                        await PutTaskDelay((int)ts.TotalMilliseconds);
+                        btnSnooze.Enabled = true;
+                        btnStop.Enabled = true;
+                        lblStatus.Visible = true;
+                    }
+                }
             }
         }
-
-        //private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        //{
-        //    DateTime currentTime = DateTime.Now;
-        //    foreach(AddEditAlarm thisAlarm in alarmList)
-        //    {
-        //        //if (currentTime.Hour == thisAlarm.Alarm.Hour && currentTime.Minute == thisAlarm.Alarm.Minute && currentTime.Second == thisAlarm.Alarm.Second)
-        //        if(DateTime.Now >= thisAlarm.Alarm)
-        //        {
-        //            timer.Stop();
-        //            lblStatus.Visible = true;
-        //        }
-        //    }
-        //}
 
         private void BtnAddAlarm_Click(object sender, EventArgs e)
         {
@@ -79,11 +80,15 @@ namespace _501AlarmClock
 
         private async void BtnSnooze_Click(object sender, EventArgs e)
         {
+            btnSnooze.Enabled = false;
+            btnStop.Enabled = false;
             if (lblStatus.Visible)
             {
                 lblStatus.Visible = false;
                 await PutTaskDelay(30000); //30 second snooze
                 lblStatus.Visible = true;
+                btnSnooze.Enabled = true;
+                btnStop.Enabled = true;
             }
         }
 
@@ -94,32 +99,35 @@ namespace _501AlarmClock
 
         private void BtnStop_Click(object sender, EventArgs e)
         {
-            if (lblStatus.Visible) lblStatus.Visible = false;
+            lblStatus.Visible = false;
+            btnStop.Enabled = false;
+            btnSnooze.Enabled = false;
         }
 
         private void WriteAlarms()
         {
-            using (StreamWriter file = new StreamWriter(@"C:\Users\sethyenni\Documents\501AlarmClock\alarms.txt"))
+            using (StreamWriter file = new StreamWriter("alarms.txt"))
             {
                 foreach (AddEditAlarm alarm in alarmList)
                 {
                     file.WriteLine(alarm.Alarm.ToString());
                 }
             }
-            using (StreamWriter file = new StreamWriter(@"C:\Users\sethyenni\Documents\501AlarmClock\alarmsOnOff.txt"))
+            using (StreamWriter file = new StreamWriter("alarmsOnOff.txt")) //Absolute path - @"C:\Users\sethyenni\Documents\501AlarmClock\alarmsOnOff.txt"
             {
                 foreach (AddEditAlarm alarm in alarmList)
                 {
                     file.WriteLine(alarm.On.ToString());
                 }
             }
+            CreateAlarmDelay();
         }
 
         private void LoadAlarms()
         {
             BindingList<DateTime> alarms = new BindingList<DateTime>();
             BindingList<bool> alarmsOnOff = new BindingList<bool>();
-            using (StreamReader file = new StreamReader(@"C:\Users\sethyenni\Documents\501AlarmClock\alarms.txt"))
+            using (StreamReader file = new StreamReader("alarms.txt"))
             {
                 string line;
                 while ((line = file.ReadLine()) != null)
@@ -127,7 +135,7 @@ namespace _501AlarmClock
                     alarms.Add(Convert.ToDateTime(line));
                 }
             }
-            using (StreamReader file = new StreamReader(@"C:\Users\sethyenni\Documents\501AlarmClock\alarmsOnOff.txt"))
+            using (StreamReader file = new StreamReader("alarmsOnOff.txt"))
             {
                 string line;
                 while ((line = file.ReadLine()) != null)
@@ -141,6 +149,7 @@ namespace _501AlarmClock
                 alarmList.Add(alarm);
                 listBox.Items.Add(alarm.ToString());
             }
+            CreateAlarmDelay();
         }
     }
 }
