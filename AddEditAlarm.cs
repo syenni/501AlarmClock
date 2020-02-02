@@ -12,12 +12,19 @@ namespace _501AlarmClock
 {
     public partial class AddEditAlarm : Form
     {
-        public DateTime Alarm { get; private set; }
-        public bool On { get; private set; }
+        public DateTime Alarm { get; set; }
+        public bool On { get; set; }
 
         public AddEditAlarm()
         {
             InitializeComponent();
+        }
+
+        public AddEditAlarm(DateTime alarm, bool onOff)
+        {
+            InitializeComponent();
+            Alarm = alarm;
+            On = onOff;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
